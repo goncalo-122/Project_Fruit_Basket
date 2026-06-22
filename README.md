@@ -37,9 +37,9 @@ Following best practices for distributed architectures, the next steps include:
 * Add unit tests for Service layer
 * Add missing Basket operations:
     - **[Remove item](ca://s?q=remove_item_from_basket)**
+    - **[Delete basket](ca://s?q=clear_basket)**
+      - Note:In this method the quantity allocated in the basket is updated in Fruit microService
     - **[Update item quantity](ca://s?q=update_basket_item_quantity)**
-    - **[Clear basket](ca://s?q=clear_basket)**
-    - **[Calculate basket total](ca://s?q=calculate_basket_total)**
 * Add Fault Tolerance (timeouts, retries, circuit breakers)
 * Add MapStruct for automatic DTO mapping
 * Add Kafka events (stock updated, item added)

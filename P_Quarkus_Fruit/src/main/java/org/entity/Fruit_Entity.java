@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Fruit_Entity extends PanacheEntity {
-
     @JsonIgnore
     public Long id;
 

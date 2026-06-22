@@ -79,4 +79,18 @@ public class BasketService {
 
         return dto;
     }
+
+    @Transactional
+    public boolean deleteBasket(Long id) {
+
+        long deleted = basketRepository.delete("basketId", id);
+        return deleted > 0;
+
+
+
+
+    }
+    public List<BasketEntity> getBaskets() {
+        return basketRepository.listAll();
+    }
 }
