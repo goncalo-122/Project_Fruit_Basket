@@ -31,10 +31,17 @@ public class BasketService {
         }
         FruitDTO remoteFruit = fruitClient.getFruitById(dto.fruitId);
 
+
+
         if (remoteFruit.quantity < dto.quantity) {
             throw new IllegalArgumentException(
                     "Stock not available. Available: " + remoteFruit.quantity
             );
+        }
+
+        if (!remoteFruit.name.equalsIgnoreCase(dto.fruitname)) {
+            throw new IllegalArgumentException(
+                    "fruitname doesn´t match -> Name Received" + remoteFruit.name + "Name registered");
         }
 
         int newStock = remoteFruit.quantity - dto.quantity;
@@ -82,6 +89,24 @@ public class BasketService {
 
     @Transactional
     public boolean deleteBasket(Long id) {
+
+        List<BasketEntity> items = basketRepository.list("basketId", id);
+
+        if (items.isEmpty()) {
+            return false;
+        }
+        for (BasketEntity item : items) {
+
+
+            FruitDTO fruit = fruitClient.getFruitById(item.fruitId);
+
+
+            fruit.quantity = fruit.quantity + item.quantity;
+
+
+            fruitClient.updateFruitQuantity(fruit.fruitId, fruit);
+        }
+
 
         long deleted = basketRepository.delete("basketId", id);
         return deleted > 0;

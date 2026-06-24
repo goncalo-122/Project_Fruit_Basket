@@ -33,13 +33,17 @@ Following best practices for distributed architectures, the next steps include:
 2. **Phase 2:** Build second microservice + add tests for Resource layer
 3. **Phase 3:** Establish communication between both services
 
-### Extended Roadmap (Professional Growth)
+### Extended Roadmap 
 * Add unit tests for Service layer
 * Add missing Basket operations:
-    - **[Remove item](ca://s?q=remove_item_from_basket)**
-    - **[Delete basket](ca://s?q=clear_basket)**
-      - Note:In this method the quantity allocated in the basket is updated in Fruit microService
-    - **[Update item quantity](ca://s?q=update_basket_item_quantity)**
+   
+- **[Delete basket](ca://s?q=clear_basket)**
+  - Note:In this method the quantity allocated in the basket is updated in Fruit microService
+  
+
+-  **[Remove item](ca://s?q=remove_item_from_basket)**
+  
+
 * Add Fault Tolerance (timeouts, retries, circuit breakers)
 * Add MapStruct for automatic DTO mapping
 * Add Kafka events (stock updated, item added)
