@@ -37,7 +37,11 @@ public class BasketService {
         }
 
         if (!remoteFruit.name.equalsIgnoreCase(dto.fruitname)) {
-            throw new IllegalArgumentException("fruitname doesn´t match -> Name Received" + remoteFruit.name + "Name registered");
+            throw new IllegalArgumentException(
+                    "fruitname doesn't match -> Received: " + dto.fruitname +
+                            ", Expected: " + remoteFruit.name
+            );
+
         }
 
         int newStock = remoteFruit.quantity - dto.quantity;
@@ -68,6 +72,10 @@ public class BasketService {
 
         List<BasketEntity> entities = basketRepository.list("basketId", basketId);
 
+        if (entities.isEmpty()) {
+            throw new NotFoundException("Basket not found");
+        }
+
         BasketDTO dto = new BasketDTO();
         dto.basketId = basketId;
 
@@ -88,9 +96,6 @@ public class BasketService {
 
         List<BasketEntity> items = basketRepository.list("basketId", id);
 
-        if (items.isEmpty()) {
-            return false;
-        }
         for (BasketEntity item : items) {
             FruitDTO fruit = fruitClient.getFruitById(item.fruitId);
             fruit.quantity = fruit.quantity + item.quantity;

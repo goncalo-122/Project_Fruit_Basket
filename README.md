@@ -42,8 +42,9 @@ Following best practices for distributed architectures, the next steps include:
   
 
 -  **[Remove item](ca://s?q=remove_item_from_basket)**
-  
 
+* Unit Test
+* Integration Test
 * Add Fault Tolerance (timeouts, retries, circuit breakers)
 * Add MapStruct for automatic DTO mapping
 * Add Kafka events (stock updated, item added)
@@ -57,3 +58,9 @@ Following best practices for distributed architectures, the next steps include:
 ### If you changed dependencies, it's better to use Clean Mode:
 ```bash
 mvn clean quarkus:dev
+```
+### If you want to run all the tests:
+```bash
+mvn clean quarkus:dev
+```
+

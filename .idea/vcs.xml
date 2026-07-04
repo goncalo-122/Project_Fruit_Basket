@@ -2,7 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/P_Quarkus_Basket/P_Quarkus_Basket" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/P_Quarkus_Fruit" vcs="Git" />
   </component>
 </project>
