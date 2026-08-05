@@ -1,0 +1,11 @@
+
+services:
+  basket:
+    image: basket-service:1.0
+    ports:
+      - "8082:8082"
+
+  fruit:
+    image: fruit-service:1.0
+    ports:
+      - "8083:8083"

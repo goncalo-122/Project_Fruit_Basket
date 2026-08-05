@@ -59,8 +59,4 @@ Following best practices for distributed architectures, the next steps include:
 ```bash
 mvn clean quarkus:dev
 ```
-### If you want to run all the tests:
-```bash
-mvn clean quarkus:dev
-```
-
+a
