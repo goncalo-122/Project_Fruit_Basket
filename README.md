@@ -22,7 +22,9 @@ The project has been structured to ensure **Separation of Concerns**, moving bus
 * **Quarkus Framework**
 * **Hibernate with Panache** (Active Record Pattern)
 * **H2 Database** (In-memory for development)
-
+* **Docker**
+* **Kubernetes**
+* **Kafka**
 ---
 
 ## Evolution Roadmap (Microservices)
@@ -32,26 +34,10 @@ Following best practices for distributed architectures, the next steps include:
 1. **Phase 1:** Build first microservice + add tests for Resource layer
 2. **Phase 2:** Build second microservice + add tests for Resource layer
 3. **Phase 3:** Establish communication between both services
+4. **Phase 4:** Implement Docker in the project
+5. **Phase 5:** Implement Kubernetes in the project
+6. **Phase 6:** Implement Kafka in the project
 
-### Extended Roadmap 
-* Add unit tests for Service layer
-* Add missing Basket operations:
-   
-- **[Delete basket](ca://s?q=clear_basket)**
-  - Note:In this method the quantity allocated in the basket is updated in Fruit microService
-  
-
--  **[Remove item](ca://s?q=remove_item_from_basket)**
-
-* Unit Test
-* Integration Test
-* Add Fault Tolerance (timeouts, retries, circuit breakers)
-* Add MapStruct for automatic DTO mapping
-* Add Kafka events (stock updated, item added)
-* Add Docker + Kubernetes deployment
-* Add Observability (logs, metrics, tracing)
-
----
 
 ## Useful Commands
 
@@ -59,4 +45,12 @@ Following best practices for distributed architectures, the next steps include:
 ```bash
 mvn clean quarkus:dev
 ```
-a
+### If you want to create an image:
+```bash
+docker build -t name:version
+```
+
+### If you want to create a container and start it:
+```bash
+docker run name:version
+```
