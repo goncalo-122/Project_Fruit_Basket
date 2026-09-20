@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 
 import java.lang.Long;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -14,11 +13,9 @@ import jakarta.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class BasketEntity extends PanacheEntity {
+public class BasketEntity {
 
-    @JsonIgnore
-    public Long id;
-
+    @Id
     public Long basketId;
     @Min(message = "Fruit Id can not be less than 0", value = 0)
     public Long fruitId;

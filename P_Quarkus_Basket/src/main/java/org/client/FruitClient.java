@@ -1,14 +1,15 @@
 package org.client;
 
+import org.dto.FruitDTO;
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import org.dto.FruitDTO;
-import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Consumes;
 
 @RegisterRestClient(configKey = "org.client.FruitClient")
 @Path("/fruit")
@@ -21,7 +22,8 @@ public interface FruitClient {
 
     @PUT
     @Path("/{fruitId}/quantity")
-    @Consumes(MediaType.APPLICATION_JSON)
-    void updateFruitQuantity(@PathParam("fruitId") Long id, FruitDTO updatedFruit);
-
+    void updateFruitQuantity(
+            @PathParam("fruitId") Long id,
+            @QueryParam("newQuantity") int newQuantity
+    );
 }

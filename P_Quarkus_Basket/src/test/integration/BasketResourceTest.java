@@ -52,7 +52,6 @@ class BasketResourceTest {
         BasketItemDTO dto = new BasketItemDTO();
         dto.basketId = 5L;
         dto.fruitId = 50L;
-        dto.fruitname = "Pear";
         dto.quantity = 4;
 
         given()
@@ -81,7 +80,6 @@ class BasketResourceTest {
         BasketItemDTO dto = new BasketItemDTO();
         dto.basketId = 2L;
         dto.fruitId = 20L;
-        dto.fruitname = "Banana";
         dto.quantity = 5;
 
         given().contentType(ContentType.JSON).body(dto).when().post("/basket").then().statusCode(201);
@@ -132,7 +130,6 @@ class BasketResourceTest {
         BasketItemDTO dto = new BasketItemDTO();
         dto.basketId = 1L;
         dto.fruitId = 10L;
-        dto.fruitname = "Apple";
         dto.quantity = 2;
 
         // POST — Add item
@@ -150,7 +147,6 @@ class BasketResourceTest {
         BasketItemDTO dto = new BasketItemDTO();
         dto.basketId = 1L;
         dto.fruitId = 9999L;
-        dto.fruitname = "GhostFruit";
         dto.quantity = 3;
 
 
@@ -167,7 +163,6 @@ class BasketResourceTest {
         BasketItemDTO dto = new BasketItemDTO();
         dto.basketId = 9999L; // basket inexistente
         dto.fruitId = 10L;
-        dto.fruitname = "Apple";
         dto.quantity = 2;
 
         given().contentType(ContentType.JSON).body(dto).when().post("/basket").then().statusCode(404).body(containsString("Basket not found"));
@@ -181,7 +176,6 @@ class BasketResourceTest {
         BasketItemDTO dto = new BasketItemDTO();
         dto.basketId = 3L;
         dto.fruitId = 30L;
-        dto.fruitname = "Orange";
         dto.quantity = 4;
 
         given().contentType(ContentType.JSON).body(dto).when().post("/basket").then().statusCode(201);

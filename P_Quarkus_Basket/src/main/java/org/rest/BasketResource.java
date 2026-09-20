@@ -7,11 +7,8 @@ import jakarta.ws.rs.core.Response;
 import org.entity.BasketEntity;
 import org.service.BasketService;
 import jakarta.transaction.Transactional;
-
 import java.util.List;
-
 import org.dto.BasketDTO;
-import org.dto.BasketItemDTO;
 
 @Path("/basket")
 @Produces(MediaType.APPLICATION_JSON)
@@ -30,14 +27,15 @@ public class BasketResource {
 
     @GET
     @Path("/{basketId}")
-    public BasketDTO getBasket(@PathParam("basketId") Long basketId) {
+    public List<BasketEntity> getBasket(@PathParam("basketId") Long basketId) {
         return basketService.getBasket(basketId);
     }
 
 
+
     @POST
-    public Response addItem(BasketItemDTO newItem) {
-        BasketItemDTO savedItem = basketService.addItemToBasket(newItem);
+    public Response addItem(BasketDTO newItem) {
+        BasketDTO savedItem = basketService.addItemToBasket(newItem);
         return Response.status(Response.Status.CREATED).entity(savedItem).build();
     }
 

@@ -1,10 +1,9 @@
-FROM eclipse-temurin:21-jre AS runtime
+FROM eclipse-temurin:17-jre
+
 WORKDIR /app
 
-COPY target/quarkus-app/lib/ /app/lib/
-COPY target/quarkus-app/app/ /app/app/
-COPY target/quarkus-app/quarkus/ /app/quarkus/
-COPY target/quarkus-app/quarkus-run.jar /app/quarkus-run.jar
+COPY target/quarkus-app/ /app/
 
 EXPOSE 8082
-CMD ["java", "-jar", "/app/quarkus-run.jar"]
+
+CMD ["java", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.http.port=8082", "-jar", "/app/quarkus-run.jar"]
