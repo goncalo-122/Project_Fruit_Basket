@@ -21,7 +21,7 @@ The project has been structured to ensure **Separation of Concerns**, moving bus
 * **Java 17+**
 * **Quarkus Framework**
 * **Hibernate with Panache** (Active Record Pattern)
-* **H2 Database** (In-memory for development)
+* **PostgreSQL Database** (In-memory for development)
 * **Docker**
 * **Kubernetes**
 * **Kafka**
@@ -35,8 +35,8 @@ Following best practices for distributed architectures, the next steps include:
 2. **Phase 2:** Build second microservice + add tests for Resource layer
 3. **Phase 3:** Establish communication between both services
 4. **Phase 4:** Implement Docker in the project
-5. **Phase 5:** Implement Kubernetes in the project
-6. **Phase 6:** Implement Kafka in the project
+5. **Phase 5:** Implement Kafka in the project
+6. **Phase 6:** Kubernetes in the project 
 
 
 ## Useful Commands
@@ -45,12 +45,51 @@ Following best practices for distributed architectures, the next steps include:
 ```bash
 mvn clean quarkus:dev
 ```
+
+### If you want to clean old build artifacts (prevents Docker from using outdated JARs):
+```bash
+rm -rf target
+```
+### If you want to build the application:
+```bash
+mvn clean package
+```
 ### If you want to create an image:
 ```bash
-docker build -t name:version
+docker build -t name:version .
+```
+
+### If you want to start all services with Docker Compose:
+```bash
+docker compose up --build
+```
+
+### If you want to stop everything and remove volumes:
+```bash
+docker compose down -v
 ```
 
 ### If you want to create a container and start it:
 ```bash
 docker run name:version
+```
+### If you want to view logs from a running container:
+```bash
+docker logs container-name -f
+```
+
+## BasketService test endpoints:
+```bash
+curl -X GET http://localhost:8082/basket
+curl -X GET http://localhost:8082/basket/1
+curl -X POST http://localhost:8082/basket \
+  -H "Content-Type: application/json" \
+  -d '{"basketId":1,"fruitId":2,"fruitname":"Banana","quantity":3}'
+curl -X DELETE http://localhost:8082/basket/1/fruit/2
+curl -X DELETE http://localhost:8082/basket/delete/1
+```
+
+## FruitService test endpoints:
+```bash
+curl -X GET http://localhost:8083/fruit
 ```
