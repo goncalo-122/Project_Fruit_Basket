@@ -13,9 +13,13 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
+import org.jboss.logging.Logger;
+
 
 @ApplicationScoped
 public class BasketService {
+
+    private static final Logger LOG = Logger.getLogger(BasketService.class);
 
     @Inject
     BasketRepository basketRepository;
@@ -82,14 +86,30 @@ public class BasketService {
     public boolean deleteBasket(Long id) {
 
         List<BasketEntity> items = basketRepository.list("basketId", id);
+        int itemsQtd = items.size();
 
-        for (BasketEntity item : items) {
+        // Case 0 → do not delete anything
+        if (itemsQtd == 0) {
+            throw new WebApplicationException("Basket is empty, nothing to delete", 400);
+        }
+
+        // Case 1 → send only one event
+        if (itemsQtd == 1) {
+            BasketEntity item = items.get(0);
             producer.sendAddStockEvent(item.fruitId, item.quantity);
+        }
+
+        // Case > 1 → send events for all items
+        if (itemsQtd > 1) {
+            for (BasketEntity item : items) {
+                producer.sendAddStockEvent(item.fruitId, item.quantity);
+            }
         }
 
         long deleted = basketRepository.delete("basketId", id);
         return deleted > 0;
     }
+
 
     public List<BasketEntity> getBaskets() {
         return basketRepository.listAll();
@@ -106,7 +126,15 @@ public class BasketService {
             return false;
         }
 
-        producer.sendAddStockEvent(fruitId, item.quantity);
+        try {
+            // Business logic: restore stock before deletion
+            producer.sendAddStockEvent(fruitId, item.quantity);
+        } catch (Exception e) {
+            LOG.error("Failed to send stock event for basketId=" + basketId
+                    + ", fruitId=" + fruitId, e);
+            return false;
+        }
+
 
         long del = basketRepository.delete("basketId = ?1 AND fruitId = ?2", basketId, fruitId);
         return del > 0;
